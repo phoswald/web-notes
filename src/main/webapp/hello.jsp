@@ -13,10 +13,11 @@
     <h1>Greeting</h1>
     <p>Hello, World!</p>
     <p>The current time is <%= new Date() %>.</p>
+    <p>REST <a href="rest/service/list">list</a> or <a href="rest/service/add?name=REST">add</a>.</p>
     <table>
     <%
     GreetingService service = new GreetingService();
-    service.add();
+    service.add("JSP");
     for(Greeting greeting : service.list()) {
         %>
         <tr>

@@ -5,6 +5,9 @@ import java.util.List;
 
 import phoswald.webnotes.entities.Greeting;
 
+/**
+ * Facade to work with JPA.
+ */
 public class GreetingService {
 
     public GreetingService() { }
@@ -19,10 +22,10 @@ public class GreetingService {
         }
     }
 
-    public void add() {
+    public void add(String name) {
         try(DatastoreAccessor db = new DatastoreAccessor()) {
             Greeting entity = new Greeting();
-            entity.setName("Name");
+            entity.setName(name);
             entity.setText("Created at " + new Date());
             db.beginTransaction();
             db.getEntityManager().persist(entity);
