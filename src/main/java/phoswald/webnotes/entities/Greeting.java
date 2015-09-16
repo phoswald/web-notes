@@ -6,14 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.google.appengine.api.datastore.Key;
-
 @Entity
 public class Greeting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key id;
+    private Long id; // or: com.google.appengine.api.datastore.Key
 
     @Column
     private String name;
@@ -21,8 +19,8 @@ public class Greeting {
     @Column
     private String text;
 
-    public Key getId() {
-        return id;
+    public String getId() {
+        return id == null ? "" : id.toString();
     }
 
     public String getName() {
