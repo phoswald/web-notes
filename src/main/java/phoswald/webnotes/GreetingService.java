@@ -1,6 +1,5 @@
 package phoswald.webnotes;
 
-import java.util.Date;
 import java.util.List;
 
 import phoswald.webnotes.entities.Greeting;
@@ -12,25 +11,33 @@ public class GreetingService {
 
     public GreetingService() { }
 
-    @SuppressWarnings("unchecked")
     public List<Greeting> list() {
         try(DatastoreAccessor db = new DatastoreAccessor()) {
-            db.beginTransaction();
-            List<Greeting> list = db.getEntityManager().createQuery("select g from Greeting g").getResultList();
-            db.commitTransaction();
-            return list;
+            return db.findAll(Greeting.class); // select
         }
     }
 
-    public void add(String name) {
+    public Greeting get(Long id) {
         try(DatastoreAccessor db = new DatastoreAccessor()) {
-            Greeting entity = new Greeting();
-            entity.setName(name);
-            entity.setText("Created at " + new Date());
-            db.beginTransaction();
-            db.getEntityManager().persist(entity);
-            db.getEntityManager().flush();
-            db.commitTransaction();
+            return db.find(Greeting.class, id); // select
+        }
+    }
+
+    public void put(Greeting greeting) {
+        try(DatastoreAccessor db = new DatastoreAccessor()) {
+            if(greeting.getId() == null) {
+                db.getEntityManager().persist(greeting); // insert
+            } else {
+                db.getEntityManager().merge(greeting); // works for both insert and update
+            }
+            db.markSuccessful();
+        }
+    }
+
+    public void delete(Long id) {
+        try(DatastoreAccessor db = new DatastoreAccessor()) {
+            db.getEntityManager().remove(db.find(Greeting.class, id)); // delete
+            db.markSuccessful();
         }
     }
 }

@@ -23,6 +23,10 @@ public class Greeting {
         return id == null ? "" : id.toString();
     }
 
+    public void setId(Long i) {
+        id = i;
+    }
+
     public String getName() {
         return name;
     }
