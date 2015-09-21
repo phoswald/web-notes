@@ -18,6 +18,7 @@
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>hello.jsp</welcome-file>
+        <welcome-file>greetings.html</welcome-file>
+        <!-- <welcome-file>hello.jsp</welcome-file> -->
     </welcome-file-list>
 </web-app>

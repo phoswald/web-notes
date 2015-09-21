@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -37,6 +38,14 @@ public class RestService {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Greeting> list() {
         return service.list();
+    }
+
+    @POST
+    @Path("/greetings")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void post(Greeting greeting) {
+        greeting.setId(null);
+        service.put(greeting);
     }
 
     @GET
