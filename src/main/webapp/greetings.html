@@ -4,15 +4,39 @@
     <meta charset="UTF-8">
     <title>Greetings</title>
     <link type="text/css" rel="stylesheet" href="greetings.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="greetings.js" type="text/javascript"></script>
+    <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/hoganjs/3.0.2/hogan.min.js"></script>
+    <script type="text/javascript" src="greetings.js"></script>
+    <script type="text/html" id="template-greetings">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Text</th>
+                <th></th>
+            </tr>
+            {{#greetings}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{name}}</td>
+                <td>{{text}}</td>
+                <td><button class="del-button" data-id="{{id}}">Delete</button></td>
+            </tr>
+            {{/greetings}}
+            {{^greetings}}
+            <tr>
+                <td colspan="4">No greetings found.</td>
+            </tr>
+            {{/greetings}}
+        </table>
+    </script>
 </head>
 <body>
     <h1>Greetings</h1>
     <p><input id="query-string" type="text"> <button id="query-button" type="button">Find</button></p>
-    <pre><span id="list"></span></pre>
+    <div id="greetings">
+    </div>
     <p>Name: <input id="add-name" type="text">, Text: <input id="add-text" type="text"> <button id="add-button" type="button">Add</button></p>
-    <p>ID: <input id="del-id" type="text"> <button id="del-button" type="button">Delete</button></p>
     <p>Status: <span id="status">???</span></p>
 </body>
 </html>

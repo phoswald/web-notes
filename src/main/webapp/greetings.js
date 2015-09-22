@@ -1,3 +1,9 @@
+var templateGreetings = null;
+
+function compile() {
+    templateGreetings = Hogan.compile($("#template-greetings").text());
+}
+
 function query() {
     $("#status").text("querying");
     $.ajax({
@@ -6,7 +12,9 @@ function query() {
         dataType: "json" })
     .done(function(data, textStatus, jqXHR) {
         $("#status").text("found " + data.length + " items");
-        $("#list").text(JSON.stringify(data, null, 4));
+        // $("#list").text(JSON.stringify(data, null, 4));
+        $("#greetings").html(templateGreetings.render({ greetings: data }));
+        $(".del-button").click(function() { del($(this).attr("data-id")); });
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
         $("#status").text("failed: " + errorThrown);
@@ -29,20 +37,22 @@ function add() {
         $("#add-name").val("");
         $("#add-text").val("");
         $("#status").text("added");
+        query();
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
         $("#status").text("failed: " + errorThrown);
     });
 }
 
-function del() {
+function del(id) {
     $("#status").text("deleting");
     $.ajax({
         type: "DELETE",
-        url: "rest/service/greeting/" + $("#del-id").val() })
+        url: "rest/service/greeting/" + id })
     .done(function(data, textStatus, jqXHR) {
         $("#del-id").val("");
         $("#status").text("deleted");
+        query();
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
         $("#status").text("failed: " + errorThrown);
@@ -50,9 +60,9 @@ function del() {
 }
 
 $(document).ready(function() {
+    compile();
     $("#query-button").click(query);
     $("#add-button").click(add);
-    $("#del-button").click(del);
     $("#status").text("ready");
     query();
 });
