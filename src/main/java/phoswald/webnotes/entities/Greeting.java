@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.joda.time.LocalDateTime;
+
 @Entity
 public class Greeting {
 
@@ -18,6 +20,10 @@ public class Greeting {
 
     @Column
     private String text;
+
+    @Column
+    // @Convert(converter = LocalDateTimeConverter.class)
+    private String date; // should be LocalDateTime when JPA 2.1 will work
 
     public String getId() {
         return id == null ? "" : id.toString();
@@ -41,5 +47,13 @@ public class Greeting {
 
     public void setText(String s) {
         text = s;
+    }
+
+    public LocalDateTime getDate() {
+        return new LocalDateTimeConverter().convertToEntityAttribute(date);
+    }
+
+    public void setDate(LocalDateTime d) {
+        date = new LocalDateTimeConverter().convertToDatabaseColumn(d);
     }
 }

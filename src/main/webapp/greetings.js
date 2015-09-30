@@ -12,7 +12,6 @@ function query() {
         dataType: "json" })
     .done(function(data, textStatus, jqXHR) {
         $("#status").text("found " + data.length + " items");
-        // $("#list").text(JSON.stringify(data, null, 4));
         $("#greetings").html(templateGreetings.render({ greetings: data }));
         $(".del-button").click(function() { del($(this).attr("data-id")); });
     })
