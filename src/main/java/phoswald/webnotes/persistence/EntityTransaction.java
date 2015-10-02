@@ -1,4 +1,4 @@
-package phoswald.webnotes;
+package phoswald.webnotes.persistence;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 
-public class DatastoreAccessor implements AutoCloseable {
+public class EntityTransaction implements AutoCloseable {
 
     private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
 
@@ -15,7 +15,7 @@ public class DatastoreAccessor implements AutoCloseable {
 
     private boolean success;
 
-    public DatastoreAccessor() {
+    public EntityTransaction() {
         em = factory.createEntityManager();
         em.getTransaction().begin();
     }
@@ -43,7 +43,18 @@ public class DatastoreAccessor implements AutoCloseable {
         return em.createQuery(query.select(query.from(clazz))).getResultList();
     }
 
-    public EntityManager getEntityManager() {
-        return em;
+    public void persist(Object entity) {
+        em.persist(entity); // insert
+    }
+
+    public <T> T merge(T entity) {
+        return em.merge(entity); // works for both insert and update
+    }
+
+    public <T> void remove(Class<T> clazz, Object id) {
+        T entity = em.find(clazz, id);
+        if(entity != null) {
+            em.remove(entity); // delete
+        }
     }
 }

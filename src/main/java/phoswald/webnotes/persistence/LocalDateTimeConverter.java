@@ -1,4 +1,4 @@
-package phoswald.webnotes.entities;
+package phoswald.webnotes.persistence;
 
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;

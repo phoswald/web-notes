@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Web-Notes</title>
+    <link type="text/css" rel="stylesheet" href="greetings.css"/>
+    <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/hoganjs/3.0.2/hogan.min.js"></script>
+    <script type="text/javascript" src="notes.js"></script>
+    <script type="text/html" id="template-greetings">
+        <table>
+            <tr>
+                <th>Updated</th>
+                <th>Name</th>
+                <th>Text</th>
+                <th></th>
+            </tr>
+            {{#greetings}}
+            <tr>
+                <td>{{date}}</td>
+                <td>{{name}}</td>
+                <td>{{text}}</td>
+                <td><button class="del-button" data-id="{{id}}">Delete</button></td>
+            </tr>
+            {{/greetings}}
+            {{^greetings}}
+            <tr>
+                <td colspan="4">No greetings found.</td>
+            </tr>
+            {{/greetings}}
+        </table>
+    </script>
+</head>
+<body>
+    <p><span id="current_user"></span> [<a href="javascript:logout()">Logout</a>]</p>
+    <h1>Notes</h1>
+</body>
+</html>

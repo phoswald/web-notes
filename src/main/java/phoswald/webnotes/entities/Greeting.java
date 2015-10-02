@@ -8,6 +8,9 @@ import javax.persistence.Id;
 
 import org.joda.time.LocalDateTime;
 
+import phoswald.webnotes.persistence.LocalDateTimeConverter;
+
+@Deprecated
 @Entity
 public class Greeting {
 

@@ -19,6 +19,7 @@ import org.joda.time.LocalDateTime;
 import phoswald.webnotes.GreetingService;
 import phoswald.webnotes.entities.Greeting;
 
+@Deprecated
 @Path("/service")
 public class RestService {
 

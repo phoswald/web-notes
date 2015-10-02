@@ -10,7 +10,7 @@
         </init-param>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>phoswald.webnotes.rest</param-value>
+            <param-value>phoswald.webnotes.rest,phoswald.webnotes.users,phoswald.webnotes.notes</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -29,6 +29,6 @@
         <url-pattern>/webjars/*</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>greetings.html</welcome-file>
+        <welcome-file>login.html</welcome-file>
     </welcome-file-list>
 </web-app>
