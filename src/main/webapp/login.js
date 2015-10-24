@@ -8,8 +8,8 @@ function checkLogin() {
         window.location.href = "notes.html";
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
-        $("#login_wait").hide();
-        $("#login_dialog").show();
+        $("#loading").hide();
+        $("#ready").show();
     });
 }
 
@@ -27,14 +27,16 @@ function login() {
         window.location.href = "notes.html";
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
-        $("#login_denied").show();
+        // Note: jQuery's $("#login_denied").show() does not work for <paper-toast>.
+        document.querySelector("#login_denied").show();
     });
 }
 
 $(document).ready(function() {
-    $("#login_wait").show();
-    $("#login_denied").hide();
-    $("#login_dialog").hide();
+    // Note: jQuery's $(...).show() and hide() only works for <div>, but not for <paper-material>.
+    $("#loading").show();
+    $("#ready").hide();
     $("#login_button").click(login);
-    checkLogin(); // window.setTimeout(checkLogin, 1000);
+    // checkLogin();
+    window.setTimeout(checkLogin, 1000);
 });

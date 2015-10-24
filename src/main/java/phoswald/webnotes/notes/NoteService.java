@@ -1,5 +1,6 @@
 package phoswald.webnotes.notes;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -27,6 +28,9 @@ public class NoteService {
     public Response list() {
         try(EntityTransaction txn = new EntityTransaction()) {
             List<Note> notes = txn.findAll(Note.class);
+            //Note[] array = notes.toArray(new Note[0]);
+            //Arrays.sort(array, Note.getTimestampComparator());
+            //notes = Arrays.asList(array);
             return Response.ok(notes).cacheControl(getNoCache()).build();
         }
     }

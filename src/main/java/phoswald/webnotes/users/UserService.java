@@ -37,7 +37,7 @@ public class UserService {
         try(EntityTransaction txn = new EntityTransaction()) {
             // User user = (User) request.getSession().getAttribute(ATTRIBUTE_USER);
             User user = null;
-            if(session != null) {
+            if(session != null && session.length() > 0) {
                 user = txn.find(User.class, session); // TODO: the cookie __MUST__ be encrypted
             }
             if(user != null) {

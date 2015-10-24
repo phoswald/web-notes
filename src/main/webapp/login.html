@@ -2,17 +2,35 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <title>Web-Notes</title>
-    <link type="text/css" rel="stylesheet" href="greetings.css"/>
+    <link type="text/css" rel="stylesheet" href="shared.css"/>
     <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="login.js"></script>
+    <!-- Polymer -->
+    <script src="webjars/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="webjars/bower_components/paper-input/paper-input.html">
+    <link rel="import" href="webjars/bower_components/paper-button/paper-button.html">
+    <link rel="import" href="webjars/bower_components/paper-material/paper-material.html">
+    <link rel="import" href="webjars/bower_components/paper-toast/paper-toast.html">
 </head>
 <body>
-    <p id="login_wait">Please wait...</p>
-    <p id="login_denied">Login denied.</p>
-    <div id="login_dialog">
-        <h1>Login</h1>
-        <p><input id="username" type="text"> <input id="password" type="password"> <button id="login_button" type="button">Login</button></p>
+    <div id="loading">
+        <paper-material elevation="1">
+            <p>Please wait...</p>
+        </paper-material>
     </div>
+    <div id="ready">
+        <paper-material elevation="1">
+            <h2>Login</h2>
+            <paper-input id="username" label="Username:"></paper-input>
+            <paper-input id="password" type="password" label="Password:"></paper-input>
+            <p></p>
+            <paper-button id="login_button" raised>Login</paper-button>
+        </paper-material>
+        <div id="footer">web-notes - Your notes on the web - Featuring: Java / JAX-RS / JPA / Google App Engine / Polymer / jQuery</div>
+    </div>
+    <paper-toast id="login_denied" text="Login denied."></paper-toast>
 </body>
 </html>
