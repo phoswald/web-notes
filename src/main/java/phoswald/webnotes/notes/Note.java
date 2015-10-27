@@ -1,7 +1,5 @@
 package phoswald.webnotes.notes;
 
-import java.util.Comparator;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +8,7 @@ import javax.persistence.Id;
 
 import org.joda.time.LocalDateTime;
 
-import phoswald.webnotes.persistence.LocalDateTimeConverter;
+import phoswald.webnotes.framework.LocalDateTimeConverter;
 
 /**
  * The domain class for notes.
@@ -29,7 +27,7 @@ public class Note {
     private Long noteId;
 
     @Column
-    private Long userId;
+    private String userId;
 
     @Column
     private String name;
@@ -49,12 +47,12 @@ public class Note {
         this.noteId = noteId == 0 ? null : noteId;
     }
 
-    public long getUserId() {
-        return userId == null ? 0 : userId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId == 0 ? null : userId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -81,12 +79,12 @@ public class Note {
         this.timestamp = new LocalDateTimeConverter().convertToDatabaseColumn(timestamp);
     }
 
-    public static Comparator<Note> getTimestampComparator() {
-        return new Comparator<Note>() {
-            @Override
-            public int compare(Note o1, Note o2) {
-                return o1.getTimestamp().compareTo(o2.getTimestamp());
-            }
-        };
-    }
+//    public static Comparator<Note> getTimestampComparator() {
+//        return new Comparator<Note>() {
+//            @Override
+//            public int compare(Note o1, Note o2) {
+//                return o1.getTimestamp().compareTo(o2.getTimestamp());
+//            }
+//        };
+//    }
 }

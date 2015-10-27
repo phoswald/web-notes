@@ -1,10 +1,11 @@
-package phoswald.webnotes.persistence;
+package phoswald.webnotes.framework;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
 public class EntityTransaction implements AutoCloseable {
@@ -41,6 +42,14 @@ public class EntityTransaction implements AutoCloseable {
     public <T> List<T> findAll(Class<T> clazz) {
         CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(clazz);
         return em.createQuery(query.select(query.from(clazz))).getResultList();
+    }
+
+    public <T> List<T> findQuery(Class<T> clazz, String string, Object... params) {
+        TypedQuery<T> query = em.createQuery(string, clazz);
+        for(int i = 0; i < params.length; i++) {
+           query.setParameter(i+1, params[i]);
+        }
+        return query.getResultList();
     }
 
     public void persist(Object entity) {
