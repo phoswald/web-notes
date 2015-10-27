@@ -78,13 +78,4 @@ public class Note {
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = new LocalDateTimeConverter().convertToDatabaseColumn(timestamp);
     }
-
-//    public static Comparator<Note> getTimestampComparator() {
-//        return new Comparator<Note>() {
-//            @Override
-//            public int compare(Note o1, Note o2) {
-//                return o1.getTimestamp().compareTo(o2.getTimestamp());
-//            }
-//        };
-//    }
 }

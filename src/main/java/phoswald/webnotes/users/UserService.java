@@ -24,7 +24,7 @@ import phoswald.webnotes.framework.EntityTransaction;
 public class UserService extends BaseService {
 
     @CookieParam(ATTRIBUTE_USER)
-    private String sessionUserId;
+    private String sessionUserId; // TODO: the cookie __MUST__ be verified
 
     @POST
     @Path("/login")
@@ -36,11 +36,12 @@ public class UserService extends BaseService {
                 user = new User();
                 user.setUserId(body.getUserId());
                 user.setPassword(SecurityUtils.computeHash("admin"));
+                user.setName("Administrator");
                 user.setActive(true);
                 txn.persist(user);
                 txn.markSuccessful();
             }
-            if(user == null) {
+            if(user == null || user.getActive() == false) {
                 return Response.status(Status.FORBIDDEN).build();
             }
             if(!SecurityUtils.verifyHash(user.getPassword(), body.getPassword())) {
@@ -68,7 +69,7 @@ public class UserService extends BaseService {
         try(EntityTransaction txn = new EntityTransaction()) {
             User user = null;
             if(sessionUserId != null && sessionUserId.length() > 0) {
-                user = txn.find(User.class, sessionUserId); // TODO: the cookie __MUST__ be encrypted
+                user = txn.find(User.class, sessionUserId);
             }
             if(user == null) {
                 return Response.status(Status.NOT_FOUND).cacheControl(getNoCache()).build();
